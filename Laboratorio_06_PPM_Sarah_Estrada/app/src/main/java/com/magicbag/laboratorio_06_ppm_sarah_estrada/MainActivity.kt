@@ -51,6 +51,28 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
+fun Estadistica(
+    texto: String,
+    valor: String,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(
+            text = texto,
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            text = valor,
+            style = MaterialTheme.typography.titleLarge
+        )
+    }
+}
+
+@Composable
 fun Greeting(modifier: Modifier = Modifier) {
 
     var contador by rememberSaveable { mutableIntStateOf(0) }
@@ -69,18 +91,19 @@ fun Greeting(modifier: Modifier = Modifier) {
         ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
-    ){
+    ) {
 
         Text(
             text = "Sarah Estrada",
             style = MaterialTheme.typography.displayMedium,
         )
 
-        Row(modifier = Modifier
-            .padding(16.dp),
+        Row(
+            modifier = Modifier
+                .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ){
+        ) {
             Button(
                 onClick = {
                     contador--
@@ -117,84 +140,36 @@ fun Greeting(modifier: Modifier = Modifier) {
 
         }
 
-        Column(modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
-        ){
-            Row(modifier = Modifier
-                .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = "Total Incrementos: ",
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(
-                    text = incrementos.toString(),
-                    style = MaterialTheme.typography.titleLarge
-                )
-            }
+        ) {
+            Estadistica(
+                texto = "Total Incrementos: ",
+                valor = incrementos.toString()
+            )
 
-            Row(modifier = Modifier
-                .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = "Total Decrementos: ",
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(
-                    text = decrementos.toString(),
-                    style = MaterialTheme.typography.titleLarge
-                )
-            }
-            Row(modifier = Modifier
-                .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = "Valor máximo: ",
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(
-                    text = max.toString(),
-                    style = MaterialTheme.typography.titleLarge
-                )
-            }
+            Estadistica(
+                texto = "Total Decrementos: ",
+                valor = decrementos.toString()
+            )
 
-            Row(modifier = Modifier
-                .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = "Valor Mínimo: ",
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(
-                    text = min.toString(),
-                    style = MaterialTheme.typography.titleLarge
-                )
-            }
+            Estadistica(
+                texto = "Valor máximo: ",
+                valor = max.toString()
+            )
 
-            Row(modifier = Modifier
-                .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = "Total Cambios: ",
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(
-                    text = cambios.toString(),
-                    style = MaterialTheme.typography.titleLarge
-                )
-            }
+            Estadistica(
+                texto = "Valor Mínimo: ",
+                valor = min.toString()
+            )
+
+            Estadistica(
+                texto = "Total Cambios: ",
+                valor = cambios.toString()
+            )
 
             Text(
                 text = "Historial: ",
@@ -205,9 +180,10 @@ fun Greeting(modifier: Modifier = Modifier) {
 
         Column(
             modifier = Modifier
-                .fillMaxSize(),
+                .fillMaxWidth()
+                .weight(1f),
             verticalArrangement = Arrangement.SpaceBetween
-        ){
+        ) {
             LazyVerticalGrid(
                 columns = GridCells.Fixed(5),
                 modifier = Modifier
@@ -216,7 +192,7 @@ fun Greeting(modifier: Modifier = Modifier) {
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                itemsIndexed(listaDeNumeros){ index, numero ->
+                itemsIndexed(listaDeNumeros) { index, numero ->
 
                     var colorFondo = Color.Green
 
@@ -244,24 +220,24 @@ fun Greeting(modifier: Modifier = Modifier) {
                     )
                 }
             }
-            Button(
-                onClick = {
-                    contador = 0
-                    incrementos = 0
-                    decrementos = 0
-                    max = 0
-                    min = 0
-                    cambios = 0
-                    listaDeNumeros = listOf()
+        }
+        Button(
+            onClick = {
+                contador = 0
+                incrementos = 0
+                decrementos = 0
+                max = 0
+                min = 0
+                cambios = 0
+                listaDeNumeros = listOf()
 
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-            ){
-                Text(
-                    text = "Reiniciar"
-                )
-            }
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+        ){
+            Text(
+                text = "Reiniciar"
+            )
         }
     }
 }
