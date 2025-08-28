@@ -96,8 +96,7 @@
 
                 Button(
                     onClick = {
-                        val appPackageName = "com.magicbag.laboratorio_05_ppm_sarah_estrada"
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName"))
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/games?hl=es_419"))
                         context.startActivity(intent)
                     },
                     modifier = Modifier
